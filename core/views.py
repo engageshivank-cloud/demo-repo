@@ -22,3 +22,12 @@ def put_blog(request, pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+
+def patch_blog(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    if request.method == 'PATCH':
+        serializer = BlogSerializer(blog, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
