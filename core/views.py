@@ -31,3 +31,10 @@ def patch_blog(request, pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+
+
+def delete_blog(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    if request.method == 'DELETE':
+        blog.delete()
+        return Response(status=204)
