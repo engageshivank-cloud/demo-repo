@@ -7,6 +7,8 @@ class BlogSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class CommentSerializer(serializers.ModelSerializer):
+    blog_name = serializers.CharField(source='blog.title', read_only=True)
+
     class Meta:
         model = Comment
         fields = '__all__'
