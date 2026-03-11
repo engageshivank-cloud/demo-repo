@@ -62,3 +62,12 @@ class CommentDetail(APIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=400)
+
+    def put(self, request, blog_pk, pk):
+        blog = get_object_or_404(Blog, pk=blog_pk)
+        comment = get_object_or_404(blog.comments, pk=pk)
+        serializer = CommentSerializer(comment, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=400)
